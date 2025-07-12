@@ -7,7 +7,7 @@ const {
   updateCustomer,
   deleteCustomer
 } = require('../controllers/customerController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect } = require('../middlewares/authMiddleware');
 
 router.use(protect); // All routes below require authentication
 
