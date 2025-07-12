@@ -12,9 +12,15 @@ app.use(express.json());
 const authRoutes = require('./src/routes/auth');
 app.use('/api/auth', authRoutes);
 
+
 // Customer routes
 const customerRoutes = require('./src/routes/customer');
 app.use('/api/customers', customerRoutes);
+
+
+// Notes routes
+const notesRoutes = require('./src/routes/notes');
+app.use('/api/notes', notesRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server is running');
