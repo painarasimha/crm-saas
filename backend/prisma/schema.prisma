@@ -23,7 +23,8 @@ model User {
   createdAt DateTime @default(now())
 
   organizationMembers OrganizationMember[]
-  //notes Note[]
+  notes Note[]
+  activityLogs ActivityLog[]
 }
 
 model Organization {
@@ -32,9 +33,9 @@ model Organization {
   createdAt DateTime @default(now())
 
   members OrganizationMember[]
-  //customers Customer[]
-  //subscriptions Subscription[]
-  //activityLogs ActivityLog[]
+  customers Customer[]
+  subscriptions Subscription[]
+  activityLogs ActivityLog[]
 }
 
 model OrganizationMember {
@@ -47,3 +48,58 @@ model OrganizationMember {
   user         User         @relation(fields: [userId], references: [id])
   organization Organization @relation(fields: [organizationId], references: [id])
 }
+
+model Customer {
+  id              String           @id @default(uuid())
+  name            String
+  email           String?
+  phone           String?
+  createdAt       DateTime         @default(now())
+  organizationId  String
+
+  organization    Organization     @relation(fields: [organizationId], references: [id])
+  notes           Note[]
+} 
+
+model Note{
+  id          String     @id @default(uuid())
+  content     String
+  createdAt   DateTime   @default(now())
+  userId      String
+  customerId  String
+
+  user        User       @relation(fields: [userId], references: [id])
+  customer    Customer   @relation(fields: [customerId], references: [id])
+}
+
+model Subscription {
+  id              String        @id @default(uuid())
+  plan            String        // 'free' | 'pro' | 'enterprise'
+  status          String        // 'active' | 'trialing' | 'canceled'
+  startDate       DateTime
+  endDate         DateTime?
+  organizationId  String
+
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+}
+
+model ActivityLog {
+  id              String        @id @default(uuid())
+  action          String
+  createdAt       DateTime      @default(now())
+  userId          String?
+  organizationId  String
+
+  user            User?         @relation(fields: [userId], references: [id])
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+}
+
+/* model File {
+  id          String      @id @default(uuid())
+  url         String
+  filename    String
+  createdAt   DateTime    @default(now())
+  customerId  String
+
+  customer    Customer    @relation(fields: [customerId], references: [id])
+} */
