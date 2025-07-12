@@ -43,7 +43,7 @@ const deleteNote = async (req, res) => {
   }
 };
 
-moddule.exports = {
+module.exports = {
   getNotes,
   createNote,
   deleteNote,

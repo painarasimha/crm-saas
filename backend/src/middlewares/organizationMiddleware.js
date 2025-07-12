@@ -48,6 +48,6 @@ const isOrgMember = async (req, res, next) => {
 };
 
 module.exports = {
-  isOrganizer,
-  isMember,
+  isOrgOwner,
+  isOrgMember,
 };
