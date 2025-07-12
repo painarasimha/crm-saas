@@ -18,6 +18,11 @@ const customerRoutes = require('./src/routes/customer');
 app.use('/api/customers', customerRoutes);
 
 
+// Organization routes
+const organizationRoutes = require('./src/routes/organization');
+app.use('/api/organizations', organizationRoutes);
+
+
 // Notes routes
 const notesRoutes = require('./src/routes/notes');
 app.use('/api/notes', notesRoutes);
