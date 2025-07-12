@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19EX2kzdXVFTGsycHZUeW9FNWNCalYiLCJhcGlfa2V5IjoiMDFKWllBWFBYMEZFV1ZXWFkxQVNDMllDNDAiLCJ0ZW5hbnRfaWQiOiI0ZjNhNWQ1N2M1MWU0OGE3MDIxNWMzMzU0YjkxM2ViYWUwODkzZDBkZDQ4MjZiOWNmZTIyZDc3NjYzYzg2MDc0IiwiaW50ZXJuYWxfc2VjcmV0IjoiZmY4MGYxYzgtMTI5Yi00YTEyLTk1MTEtNjEwZTlhMmQ5MzYxIn0.RVkURrGlN3LdsgNnblM6Jh0b4ICPsof0CQ2hFJZGRrs
+      - JWT_SECRET=412776a7b1f0da2aaacdf1cc66ba3f0008edd5eec9aa59b7dcb425f409cb47d9
+      - PORT=5000
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:14
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crm
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
