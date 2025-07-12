@@ -8,8 +8,13 @@ app.use(cors());
 app.use(express.json());
 
 //Routes
+// Authentication routes
 const authRoutes = require('./src/routes/auth');
 app.use('/api/auth', authRoutes);
+
+// Customer routes
+const customerRoutes = require('./src/routes/customer');
+app.use('/api/customers', customerRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server is running');
